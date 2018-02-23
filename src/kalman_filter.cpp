@@ -112,17 +112,17 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
 
 	// y[1] the value φ,must be normalized to be in-between -π and π
 	
-	if (y[1] < -M_PI) {
+	if (y(1) < -M_PI) {
 
 		phi = phi + 2* M_PI;
 	}
 	
-	else if (phi > M_PI) {
+	else if (y(1) > M_PI) {
 		phi = phi - 2* M_PI;
 
 	}
 	
-	y[1] = phi;
+	y(1) = phi;
 	
 
 	MatrixXd Ht = H_.transpose();

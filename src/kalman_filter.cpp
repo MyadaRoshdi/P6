@@ -61,17 +61,30 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   */
     // To calculate y, we use the h(x') which maps the predicted location x' from cartesian to polar co-ordinates
     //recover state parameters
-	float px = z[0];
-	float py = z[1];
-	float vx = z[2];
-	float vy = z[3];
+	float px = x_[0];
+	float py = x_[1];
+	float vx = x_[2];
+	float vy = x_[3];
 	
 	//pre-compute a set of terms to avoid repeated calculation
 	float c1 = px*px + py*py;
-	float c2 = sqrt(c1);
+	float rho = sqrt(c1);
 	float c3 =  px*vx + py*vy;
+	float rhodot = 0;
 	VectorXd z_pred = VectorXd(3);
-	z_pred << c2, atan(py / px), c3 / c2;
+
+	//check division by zero
+	if (fabs(rho) < 0.0001) {
+		// so, if rho = 0, use rhodot = 0, to avoid division by zero
+	}
+	else {
+
+	    rhodot = c3 / rho;
+	}
+
+	
+
+	z_pred << rho, atan(py / px), rhodot;
 	VectorXd y = z - z_pred;
 	// y[1] is the value φ,must be normalized to be in-between -π and π
 	float phi = y[1];
@@ -80,6 +93,7 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
 	else if (phi > M_PI)
 		phi = phi - 2 * M_PI;
 	y[1] = phi;
+
 	MatrixXd Ht = H_.transpose();
 	MatrixXd S = H_ * P_ * Ht + R_;
 	MatrixXd Si = S.inverse();

@@ -82,7 +82,13 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
 	    rhodot = c3 / rho;
 	}
 
-	
+	if (fabs(px) < 0.0001) {
+		// so, if rho = 0, use rhodot = 0, to avoid division by zero
+	}
+	else {
+
+		rhodot = c3 / rho;
+	}
 
 	z_pred << rho, atan(py / px), rhodot;
 	VectorXd y = z - z_pred;

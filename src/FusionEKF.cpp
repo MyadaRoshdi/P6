@@ -43,7 +43,9 @@ FusionEKF::FusionEKF() {
 		  0, 1, 0, 0;
 
   // Initialize non- linear measurment matrix Hj - Radar
-
+  Hj_ << 1, 1, 0, 0,
+	  1, 1, 0, 0,
+	  1, 1, 1, 1;
 
   // state covariance matrix
   ekf_.P_ = MatrixXd(4, 4);

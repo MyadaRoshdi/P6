@@ -96,16 +96,31 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
 	phi = atan(py / px);
 
 	// phi the value φ,must be normalized to be in-between -π and π
-	/**
+	/*
 	if (phi < -M_PI)
 		phi = phi + 2 * M_PI;
 	else if (phi > M_PI)
 		phi = phi - 2 * M_PI;
-	**/
+    **/
 
 
 	z_pred << rho, phi, rhodot;
 	VectorXd y = z - z_pred;
+
+	// y[1] the value φ,must be normalized to be in-between -π and π
+	
+	if (y[1] < -M_PI) {
+
+		phi = phi + 2 * M_PI;
+	}
+	
+	else if (phi > M_PI) {
+		phi = phi - 2 * M_PI;
+
+	}
+	
+	y[1] = phi;
+
 	MatrixXd Ht = H_.transpose();
 	MatrixXd S = H_ * P_ * Ht + R_;
 	MatrixXd Si = S.inverse();

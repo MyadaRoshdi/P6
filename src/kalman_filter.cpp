@@ -83,30 +83,11 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
 	    rhodot = c3 / rho;
 	}
 
-	/**
-	if (fabs(px) < 0.0001) {
-		
-		phi = M_PI / 2.0;
-	}
-	else {
-
-		phi = atan(py / px);
-	}
-	**/
+	
 	// Using atan(py/px) was not generating accurate angle when the car in the simulator started to turn down of the pow
 	// Another thing to mention is that atan2 is more stable when computing tangents using an expression like atan(y/x) and x is 0 or close to 0.
 	// atan = gives angle value between -90 and 90, while atan2 = gives angle value between - 180 and 180
 	phi = atan2(py , px);
-
-	// phi the value φ,must be normalized to be in-between -π and π
-	/*
-	if (phi < -M_PI)
-		phi = phi + 2 * M_PI;
-	else if (phi > M_PI)
-		phi = phi - 2 * M_PI;
-    **/
-
-
 	z_pred << rho, phi, rhodot;
 	VectorXd y = z - z_pred;
 
@@ -114,17 +95,14 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
 	
 	if (y(1) < -M_PI) {
 
-		phi = phi + 2* M_PI;
+		y(1) = y(1) + 2* M_PI;
 	}
 	
 	else if (y(1) > M_PI) {
-		phi = phi - 2* M_PI;
+		y(1) = y(1) - 2* M_PI;
 
 	}
 	
-	y(1) = phi;
-	
-
 	MatrixXd Ht = H_.transpose();
 	MatrixXd S = H_ * P_ * Ht + R_;
 	MatrixXd Si = S.inverse();

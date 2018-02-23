@@ -111,11 +111,11 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
 	
 	if (y[1] < -M_PI) {
 
-		phi = phi + 2 * M_PI;
+		phi = phi +  M_PI;
 	}
 	
 	else if (phi > M_PI) {
-		phi = phi - 2 * M_PI;
+		phi = phi -  M_PI;
 
 	}
 	

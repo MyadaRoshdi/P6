@@ -38,11 +38,11 @@ FusionEKF::FusionEKF() {
     *
   */
 
-  // Initialize measurement linear transition matrix - laser
+  // Initialize linear measurment  matrix - laser
   H_laser_  << 1, 0, 0, 0,
 		  0, 1, 0, 0;
 
-  // Initialize measurement non- linear transition matrix - Radar
+  // Initialize non- linear measurment matrix Hj - Radar
 
 
   // state covariance matrix
@@ -173,17 +173,8 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
 
   if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
 
-	  float rho = measurement_pack.raw_measurements_[0];
-	  float theta = measurement_pack.raw_measurements_[1];
-	  float rho_dot = measurement_pack.raw_measurements_[2];
-	  float px = rho * cos(theta);
-	  float py = rho * sin(theta);
-	  float vx = rho_dot * cos(theta);
-	  float vy = rho_dot * sin(theta);
-
-	  //set the state with the initial location and  velocity
-	  ekf_.x_ << px, py, vx, vy;
-
+	  
+     // Hj_ is used to calculate S,K and P
 	  Hj_ = tools.CalculateJacobian(ekf_.x_);
 	  ekf_.R_ = R_radar_;
 	  ekf_.H_ = Hj_;
@@ -192,7 +183,7 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
   } else {
     // Laser updates
 
-	 ekf_.x_ << measurement_pack.raw_measurements_[0], measurement_pack.raw_measurements_[1], 0, 0;
+	
 	 ekf_.R_ = R_laser_;
 	 ekf_.H_ = H_laser_;
 	 ekf_.Update(measurement_pack.raw_measurements_);

@@ -71,6 +71,7 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
 	float rho = sqrt(c1);
 	float c3 =  px*vx + py*vy;
 	float rhodot = 0;
+	float phi = 0;
 	VectorXd z_pred = VectorXd(3);
 
 	//check division by zero
@@ -84,16 +85,17 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
 
 	if (fabs(px) < 0.0001) {
 		// so, if rho = 0, use rhodot = 0, to avoid division by zero
+		phi = M_PI / 2.0;
 	}
 	else {
 
-		rhodot = c3 / rho;
+		phi = atan(py / px);
 	}
 
-	z_pred << rho, atan(py / px), rhodot;
+	z_pred << rho, phi, rhodot;
 	VectorXd y = z - z_pred;
 	// y[1] is the value φ,must be normalized to be in-between -π and π
-	float phi = y[1];
+
 	if (phi < -M_PI)
 		phi = phi + 2 * M_PI;
 	else if (phi > M_PI)

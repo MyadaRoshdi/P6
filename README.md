@@ -82,3 +82,16 @@ Matlab scripts that can generate additional data.
 Generally, Kalman filter is running iteratively 2- basic steps, **State Predict** & **Measurment update** for each sensor measurment as shown below:
 
 ![KF_concept][image1]
+
+## Extended Kalman filter Algorithm flow
+
+In Extended Kalman filter (Sensor fusion), here I use the following:
+1.) Data from both Lidar and Radar
+2.) State prediction is done using **Bayes Rule** for both sensors
+3.) Measurment update is using linear motion model for Lidar and non-linear for Radar( using Taylor series i.e. jacobian transformation step)
+
+**Note: Laser provides high accuracy position info (px,py) whilt Radar provides precise velocity info (vx,vy) using dopler effect.
+**Note: Laser measurments are provided in Cartisian co-ordinates while Radar in Polar co-ordinates, so in state predicition step, we always need to convert form Polar to Cartisian in Radar case to set the state vector x=[px, py, vx, vy]/
+Here's the flowchart for the used algorithm for 
+
+![EKF_flowchart][image2]

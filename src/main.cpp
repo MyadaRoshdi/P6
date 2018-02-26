@@ -1,5 +1,7 @@
 #include <uWS/uWS.h>
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include "json.hpp"
 #include <math.h>
 #include "FusionEKF.h"
@@ -61,6 +63,8 @@ int main()
           MeasurementPackage meas_package;
           istringstream iss(sensor_measurment);
     	  long long timestamp;
+          ofstream outfile;
+          outfile.open("out.txt", ios::out | ios::ate | ios::app);		
 
     	  // reads first element from the current line
     	  string sensor_type;
@@ -136,6 +140,16 @@ int main()
           auto msg = "42[\"estimate_marker\"," + msgJson.dump() + "]";
           // std::cout << msg << std::endl;
           ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
+          // Write data to out.txt file to use later in visualization
+          out_file << estimate(0) << "\t";
+          out_file << estimate(1) << "\t";
+          out_file << estimate(2) << "\t";
+          out_file << estimate(3) << "\t";
+
+          out_file << gt_values(0) << "\t";
+          out_file << gt_values(1) << "\t";
+          out_file << gt_values(2) << "\t";
+          out_file << gt_values(3) << "\n";		
 	  
         }
       } else {

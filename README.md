@@ -79,6 +79,6 @@ Matlab scripts that can generate additional data.
 
 ## Kalman filter main concept
 
-Generally, Kalman filter is running iteratively 2- basic steps, **State Predict** & **Mearurment update** for each sensor measurment as shown below:
+Generally, Kalman filter is running iteratively 2- basic steps, **State Predict** & **Measurment update** for each sensor measurment as shown below:
 
-![KF_concept][image0]
+![KF_concept][image1]

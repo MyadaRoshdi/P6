@@ -41,7 +41,7 @@ int main()
   vector<VectorXd> ground_truth;
 
   // use an output file to write data for plotting
-  ofstream out_file;
+  fstream out_file;
   out_file.open("out.txt", ios::out | ios::ate | ios::app);
 
   h.onMessage([&fusionEKF,&tools,&estimations,&ground_truth](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {

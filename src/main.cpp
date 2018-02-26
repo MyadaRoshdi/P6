@@ -41,7 +41,7 @@ int main()
   vector<VectorXd> ground_truth;
 
   // use an output file to write data for plotting
-  fstream out_file;
+  ofstream out_file;
   out_file.open("out.txt", ios::out | ios::ate | ios::app);
 
   h.onMessage([&fusionEKF,&tools,&estimations,&ground_truth](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
@@ -143,17 +143,20 @@ int main()
           auto msg = "42[\"estimate_marker\"," + msgJson.dump() + "]";
           // std::cout << msg << std::endl;
           ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
-          // Write data to out.txt file to use later in visualization
-		  out_file << sensor_type << "\t";
-          out_file << estimate(0) << "\t";
-          out_file << estimate(1) << "\t";
-          out_file << estimate(2) << "\t";
-          out_file << estimate(3) << "\t";
+	  if (out_file.is_open())
+	{	
+             // Write data to out.txt file to use later in visualization
+             out_file << sensor_type << "\t";
+             out_file << estimate(0) << "\t";
+             out_file << estimate(1) << "\t";
+             out_file << estimate(2) << "\t";
+             out_file << estimate(3) << "\t";
 
-          out_file << gt_values(0) << "\t";
-          out_file << gt_values(1) << "\t";
-          out_file << gt_values(2) << "\t";
-          out_file << gt_values(3) << "\n";		
+             out_file << gt_values(0) << "\t";
+             out_file << gt_values(1) << "\t";
+             out_file << gt_values(2) << "\t";
+             out_file << gt_values(3) << "\n";	
+	  }
 	  
         }
       } else {
@@ -200,5 +203,6 @@ int main()
     return -1;
   }
   h.run();
+	
   out_file.close();
 }

@@ -1,4 +1,4 @@
-# Extended Kalman Filter Project 
+# Extended Kalman Filter for object tracking 
 Self-Driving Car Engineer Nanodegree Program
 
 In this project I used Extended kalman filter to estimate the state of a moving object of interest with noisy lidar and radar measurements. Obtaining RMSE values for estimated object location( px, py) and velocity ( vx, vy) output coordinates  <= [.11, .11, 0.52, 0.52] when using the file: "obj_pose-laser-radar-synthetic-input.txt" which is the same data file the simulator uses for Dataset 1. 
@@ -86,8 +86,11 @@ Generally, Kalman filter is running iteratively 2- basic steps, **State Predict*
 ## Extended Kalman filter Algorithm flow
 
 In Extended Kalman filter (Sensor fusion), here I use the following:
+
 1.) Data from both Lidar and Radar
+
 2.) State prediction is done using **Bayes Rule** for both sensors
+
 3.) Measurment update is using linear motion model for Lidar and non-linear for Radar( using Taylor series i.e. jacobian transformation step)
 
 **Note: Laser provides high accuracy position info (px,py) whilt Radar provides precise velocity info (vx,vy) using dopler effect.

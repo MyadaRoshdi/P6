@@ -40,6 +40,10 @@ int main()
   vector<VectorXd> estimations;
   vector<VectorXd> ground_truth;
 
+  // use an output file to write data for plotting
+  ofstream out_file;
+  out_file.open("out.txt", ios::out | ios::ate | ios::app);
+
   h.onMessage([&fusionEKF,&tools,&estimations,&ground_truth](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
     // The 4 signifies a websocket message
@@ -63,8 +67,7 @@ int main()
           MeasurementPackage meas_package;
           istringstream iss(sensor_measurment);
     	  long long timestamp;
-          ofstream outfile;
-          outfile.open("out.txt", ios::out | ios::ate | ios::app);		
+         	
 
     	  // reads first element from the current line
     	  string sensor_type;
@@ -141,6 +144,7 @@ int main()
           // std::cout << msg << std::endl;
           ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
           // Write data to out.txt file to use later in visualization
+		  out_file << sensor_type << "\t";
           out_file << estimate(0) << "\t";
           out_file << estimate(1) << "\t";
           out_file << estimate(2) << "\t";
@@ -196,4 +200,5 @@ int main()
     return -1;
   }
   h.run();
+  out_file.close();
 }

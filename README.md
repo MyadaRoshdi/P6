@@ -9,6 +9,8 @@ In this project I used Extended kalman filter to estimate the state of a moving 
 [image1]: ./imgs/KF_concept.jpg "KF_concept"
 [image2]: ./imgs/EKF_flowchart.jpg "EKF_flowchart"
 [image3]: ./imgs/Fusion.gif "fusion_video"
+[image4]: ./imgs/Radar.gif "Radar_video"
+[image5]: ./imgs/Laser.gif "Laser_video"
 
 This project involves the Term 2 Simulator which can be downloaded [here](https://github.com/udacity/self-driving-car-sim/releases)
 
@@ -114,9 +116,18 @@ When I ran my EKF algorithm using just Radar, or just Laser and both I noticed t
 Here you will find the simulator o/p in each case:
 
 **Fusion**
+
 ![Fusion ][image3]
 
- 
+ **Radar only**
+
+![Radar ][image4]
+
+**Laser only**
+
+![Laser ][image5]
+
+
  ## Conclusion
  
  EKF is not the best for the non-linear motion prediction.

@@ -8,6 +8,7 @@ In this project I used Extended kalman filter to estimate the state of a moving 
 [image0]: ./imgs/code_simulator.jpg "code_simulator"
 [image1]: ./imgs/KF_concept.jpg "KF_concept"
 [image2]: ./imgs/EKF_flowchart.jpg "EKF_flowchart"
+[image3]: ./imgs/Fusion.gif "fusion_video"
 
 This project involves the Term 2 Simulator which can be downloaded [here](https://github.com/udacity/self-driving-car-sim/releases)
 
@@ -109,6 +110,12 @@ When I ran my EKF algorithm using just Radar, or just Laser and both I noticed t
 **2) Using just Lidar was best behavior, the location was correctly predicted from the start and almost the same as the true measurment, only the vx and vy components in the RMSE in Laser were higher than both Radar and fusion.
 
 **3) Usng fusion, was not bad but still using just laser was better as matter of location prediction but not velocity.
+
+Here you will find the simulator o/p in each case:
+
+**Fusion**
+![Fusion ][image3]
+
  
  ## Conclusion
  

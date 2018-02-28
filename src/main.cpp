@@ -41,8 +41,8 @@ int main()
   vector<VectorXd> ground_truth;
 
   // use an output file to write data for plotting
-  ofstream out_file;
-  out_file.open("out.txt", ios::out | ios::ate | ios::app);
+ // ofstream out_file;
+  //out_file.open("out.txt", ios::out | ios::ate | ios::app);
 
   h.onMessage([&fusionEKF,&tools,&estimations,&ground_truth](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
@@ -143,6 +143,7 @@ int main()
           auto msg = "42[\"estimate_marker\"," + msgJson.dump() + "]";
           // std::cout << msg << std::endl;
           ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
+	/*	
 	  if (out_file.is_open())
 	{	
              // Write data to out.txt file to use later in visualization
@@ -157,7 +158,7 @@ int main()
              out_file << gt_values(2) << "\t";
              out_file << gt_values(3) << "\n";	
 	  }
-	  
+	  */
         }
       } else {
         

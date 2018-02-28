@@ -130,4 +130,4 @@ Here you will find the simulator o/p in each case:
 
  ## Conclusion
  
-However EKF is not the best for the non-linear motion prediction, it's already beed used in distance prediction and cruise control in cars.
+However EKF is not the best for the non-linear motion prediction, it's already been used in distance prediction and cruise control in cars.

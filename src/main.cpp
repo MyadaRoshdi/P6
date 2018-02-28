@@ -205,5 +205,5 @@ int main()
   }
   h.run();
 	
-  out_file.close();
+  //out_file.close();
 }

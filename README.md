@@ -99,3 +99,17 @@ In Extended Kalman filter (Sensor fusion), here I use the following:
 Here's the flowchart for the used algorithm for 
 
 ![EKF_flowchart][image2]
+
+## ANALYSIS
+
+When I ran my EKF algorithm using just Radar, or just Laser and both I noticed the following:
+
+**1) Using just Radar was the worst behavior, the initalization was very bad predicted and even after it was close to the true Radar measurments but not exactly the same.
+
+**2) Using just Lidar was best behavior, the location was correctly predicted from the start and almost the same as the true measurment, only the vx and vy components in the RMSE in Laser were higher than both Radar and fusion.
+
+**3) Usng fusion, was not bad but still using just laser was better as matter of location prediction but not velocity.
+ 
+ ## Conclusion
+ 
+ EKF is not the best for the non-linear motion prediction.

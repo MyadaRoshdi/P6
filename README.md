@@ -1,7 +1,7 @@
 # Extended Kalman Filter for object tracking 
 Self-Driving Car Engineer Nanodegree Program
 
-In this project I used Extended kalman filter to estimate the state of a moving object of interest with noisy lidar and radar measurements. Obtaining RMSE values for estimated object location( px, py) and velocity ( vx, vy) output coordinates  <= [.11, .11, 0.52, 0.52] when using the file: "obj_pose-laser-radar-synthetic-input.txt" which is the same data file the simulator uses for Dataset 1. 
+In this project I used Extended kalman filter to estimate the state of a moving object of interest with noisy lidar and radar measurements. EKF is a contant velocity (CV) approach. Here I was able to obtain RMSE values for estimated object location( px, py) and velocity ( vx, vy) output coordinates  <= [.11, .11, 0.52, 0.52] when using the file: "obj_pose-laser-radar-synthetic-input.txt" which is the same data file the simulator uses for Dataset 1. 
 
 [//]: # (Image References)
 
